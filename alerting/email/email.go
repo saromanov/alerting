@@ -8,6 +8,7 @@ import (
 
 // Email defines sending of alerts via email
 type Email struct {
+	email string
 }
 
 func New() error {
@@ -15,12 +16,11 @@ func New() error {
 }
 
 // Send provides sending of email
-func Send() error {
+func (e *Email) Send() error {
 	m := gomail.NewMessage()
-	m.SetHeader("From", "alex@example.com")
-	m.SetHeader("To", "bob@example.com", "cora@example.com")
-	m.SetAddressHeader("Cc", "dan@example.com", "Dan")
-	m.SetHeader("Subject", "Hello!")
+	m.SetHeader("From", e.email)
+	m.SetHeader("To", e.email)
+	m.SetHeader("Subject", "Alert!")
 	m.SetBody("text/html", "Hello <b>Bob</b> and <i>Cora</i>!")
 
 	d := gomail.NewDialer("smtp.example.com", 587, "user", "123456")
