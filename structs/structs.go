@@ -25,3 +25,10 @@ func (m *Message) Marshal() ([]byte, error) {
 func (m *Message) String() string {
 	return fmt.Sprintf("Author: %s\nText: %s\nCase: %s\n", m.Author, m.Text, m.Case)
 }
+
+// MessageResponse defines response after sending of message
+// to provider
+type MessageResponse struct {
+	ChannelID string
+	Timestamp int64
+}
