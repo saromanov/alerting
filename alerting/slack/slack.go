@@ -13,10 +13,11 @@ type Slack struct {
 }
 
 // New provides init of the Slack
-func New() *Slack {
-	api := slack.New("YOUR_TOKEN_HERE")
+func New(token string) *Slack {
+	api := slack.New(token)
 	return &Slack{
 		api:api,
+		token:token,
 	}
 }
 
