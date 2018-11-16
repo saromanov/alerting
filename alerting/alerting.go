@@ -20,3 +20,14 @@ type App struct {
 func New(c *Config) *App {
 	return &App{}
 }
+
+// Send provides sending of message
+func (a *App) Send(m *structs.Message) error {
+	return nil
+}
+
+// Collect provides collecting of allerts
+// and its send notification after some time
+func (a *App) Collect(m *structs.Message) error {
+	return nil
+}
