@@ -17,8 +17,8 @@ type Email struct {
 }
 
 // New creates a new email init
-func New() error {
-	return nil
+func New() *Email {
+	return &Email{}
 }
 
 // Send provides sending of email
