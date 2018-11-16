@@ -1,9 +1,14 @@
 package alerting
 
 import (
+	"errors"
+	"fmt"
+
 	"github.com/saromanov/alerting/db"
 	"github.com/saromanov/alerting/structs"
 )
+
+var errNoDBInit = errors.New("db is not initialized")
 
 // Alerting defines main interface for sending alerts
 type Alerting interface {
@@ -13,7 +18,7 @@ type Alerting interface {
 
 // App provides entry point for api
 type App struct {
-	d *db.DB
+	d db.DB
 }
 
 // New creates app
@@ -29,5 +34,12 @@ func (a *App) Send(m *structs.Message) error {
 // Collect provides collecting of allerts
 // and its send notification after some time
 func (a *App) Collect(m *structs.Message) error {
+	if a.d == nil {
+		return errNoDBInit
+	}
+	err := a.d.Set(m)
+	if err != nil {
+		return fmt.Errorf("unable to collect message: %v", err)
+	}
 	return nil
 }
