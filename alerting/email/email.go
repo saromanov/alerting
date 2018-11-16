@@ -9,9 +9,14 @@ import (
 
 // Email defines sending of alerts via email
 type Email struct {
-	email string
+	email    string
+	host     string
+	port     int
+	username string
+	password string
 }
 
+// New creates a new email init
 func New() error {
 	return nil
 }
