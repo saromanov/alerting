@@ -2,8 +2,8 @@ package email
 
 import (
 	"fmt"
-
 	"github.com/go-gomail/gomail"
+	"github.com/saromanov/alerting/structs"
 )
 
 // Email defines sending of alerts via email
@@ -16,12 +16,12 @@ func New() error {
 }
 
 // Send provides sending of email
-func (e *Email) Send() error {
+func (e *Email) Send(m *structs.Message) (*structs.MessageResponse, error) {
 	m := gomail.NewMessage()
 	m.SetHeader("From", e.email)
 	m.SetHeader("To", e.email)
 	m.SetHeader("Subject", "Alert!")
-	m.SetBody("text/html", "Hello <b>Bob</b> and <i>Cora</i>!")
+	m.SetBody("text/html", m.Text)
 
 	d := gomail.NewDialer("smtp.example.com", 587, "user", "123456")
 
