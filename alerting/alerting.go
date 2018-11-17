@@ -41,6 +41,7 @@ func (a *App) Collect(m *structs.Message) error {
 	if a.store == nil {
 		return errNoDBInit
 	}
+	m.ID = GenID()
 	err := a.store.Set(m)
 	if err != nil {
 		return fmt.Errorf("unable to collect message: %v", err)
