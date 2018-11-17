@@ -3,10 +3,10 @@ package alerting
 import (
 	"errors"
 	"fmt"
-
 	"github.com/saromanov/alerting/db"
 	"github.com/saromanov/alerting/db/bolt"
 	"github.com/saromanov/alerting/structs"
+	"github.com/robfig/cron"
 )
 
 var errNoDBInit = errors.New("db is not initialized")
@@ -45,4 +45,12 @@ func (a *App) Collect(m *structs.Message) error {
 		return fmt.Errorf("unable to collect message: %v", err)
 	}
 	return nil
+}
+
+// Run startes instance of the app for handling of collected messages
+func (a *App) Run() error {
+	c := cron.New()
+	c.AddFunc("@every 1m", func() { fmt.Println("Every hour thirty") })
+	c.Start()
+	for {}
 }
