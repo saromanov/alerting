@@ -3,10 +3,11 @@ package alerting
 import (
 	"errors"
 	"fmt"
+
+	"github.com/robfig/cron"
 	"github.com/saromanov/alerting/db"
 	"github.com/saromanov/alerting/db/bolt"
 	"github.com/saromanov/alerting/structs"
-	"github.com/robfig/cron"
 )
 
 var errNoDBInit = errors.New("db is not initialized")
@@ -37,10 +38,10 @@ func (a *App) Send(m *structs.Message) error {
 // Collect provides collecting of allerts
 // and its send notification after some time
 func (a *App) Collect(m *structs.Message) error {
-	if a.d == nil {
+	if a.store == nil {
 		return errNoDBInit
 	}
-	err := a.d.Set(m)
+	err := a.store.Set(m)
 	if err != nil {
 		return fmt.Errorf("unable to collect message: %v", err)
 	}
@@ -52,5 +53,6 @@ func (a *App) Run() error {
 	c := cron.New()
 	c.AddFunc("@every 1m", func() { fmt.Println("Every hour thirty") })
 	c.Start()
-	for {}
+	for {
+	}
 }
