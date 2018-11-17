@@ -1,6 +1,7 @@
 package bolt
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/boltdb/bolt"
@@ -36,8 +37,21 @@ func (b *Bolt) Set(m *structs.Message) error {
 }
 
 // Get retruns message by id
-func (b *Bolt) Get() (*structs.Message, error) {
-	return nil, nil
+func (b *Bolt) Get(id string) (*structs.Message, error) {
+	var msg *structs.Message
+	err := b.db.View(func(tx *bolt.Tx) error {
+		bucket := tx.Bucket([]byte("alerts"))
+		v := bucket.Get([]byte(id))
+		err := json.Unmarshal(v, &msg)
+		if err != nil {
+			return fmt.Errorf("unable to unmarshal message: %v", err)
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, fmt.Errorf("unable to get message by id: %v", err)
+	}
+	return msg, nil
 }
 
 // View shows key-value pairs
