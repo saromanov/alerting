@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/saromanov/alerting/db"
+	"github.com/saromanov/alerting/db/bolt"
 	"github.com/saromanov/alerting/structs"
 )
 
@@ -18,12 +19,14 @@ type Alerting interface {
 
 // App provides entry point for api
 type App struct {
-	d db.DB
+	store db.DB
 }
 
 // New creates app
 func New(c *Config) *App {
-	return &App{}
+	return &App{
+		store: bolt.New(),
+	}
 }
 
 // Send provides sending of message
