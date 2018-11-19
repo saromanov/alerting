@@ -56,7 +56,7 @@ func (b *Bolt) Get(id string) (*structs.Message, error) {
 
 // View shows key-value pairs
 func (b *Bolt) View() ([]*structs.Message, error) {
-	result := []*structs.Message
+	result := []*structs.Message{}
 	err := b.db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("alerts"))
 		c := b.Cursor()
