@@ -29,7 +29,7 @@ func (e *Email) Send(m *structs.Message) (*structs.MessageResponse, error) {
 	g.SetHeader("Subject", "Alert!")
 	g.SetBody("text/html", m.Text)
 
-	d := gomail.NewDialer("smtp.example.com", 587, "user", "123456")
+	d := gomail.NewDialer(e.host, e.port, e.username, e.password)
 
 	// Send the email to Bob, Cora and Dan.
 	if err := d.DialAndSend(g); err != nil {
