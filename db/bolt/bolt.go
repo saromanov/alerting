@@ -56,12 +56,22 @@ func (b *Bolt) Get(id string) (*structs.Message, error) {
 
 // View shows key-value pairs
 func (b *Bolt) View() ([]*structs.Message, error) {
-	return nil, b.db.View(func(tx *bolt.Tx) error {
+	result := []*structs.Message
+	err := b.db.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("alerts"))
 		c := b.Cursor()
 		for k, v := c.First(); k != nil; k, v = c.Next() {
 			fmt.Printf("key=%s, value=%s\n", k, v)
+			err := json.Unmarshal(v, &v)
+			if err != nil {
+				continue
+			}
+			result = append(result, v)
 		}
 		return nil
 	})
+	if err != nil {
+		return nil, fmt.Errorf("unable to search alerts: %v", err)
+	}
+	return result, nil
 }
