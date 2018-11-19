@@ -62,11 +62,12 @@ func (b *Bolt) View() ([]*structs.Message, error) {
 		c := b.Cursor()
 		for k, v := c.First(); k != nil; k, v = c.Next() {
 			fmt.Printf("key=%s, value=%s\n", k, v)
-			err := json.Unmarshal(v, &v)
+			var msg *structs.Message
+			err := json.Unmarshal(v, &msg)
 			if err != nil {
 				continue
 			}
-			result = append(result, v)
+			result = append(result, msg)
 		}
 		return nil
 	})
