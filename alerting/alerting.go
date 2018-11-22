@@ -20,7 +20,8 @@ type Provider interface {
 
 // App provides entry point for api
 type App struct {
-	store db.DB
+	store     db.DB
+	providers []Provider
 }
 
 // New creates app
