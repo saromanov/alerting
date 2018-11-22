@@ -52,7 +52,7 @@ func (a *App) Collect(m *structs.Message) error {
 // Run startes instance of the app for handling of collected messages
 func (a *App) Run() error {
 	c := cron.New()
-	c.AddFunc("@every 1m", func() { fmt.Println("Every hour thirty") })
+	c.AddFunc("@every 1h", func() { fmt.Println("Every hour thirty") })
 	c.Start()
 	for {
 	}
