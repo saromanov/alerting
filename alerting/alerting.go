@@ -12,8 +12,8 @@ import (
 
 var errNoDBInit = errors.New("db is not initialized")
 
-// Alerting defines main interface for sending alerts
-type Alerting interface {
+// Provider defines main interface for sending alerts
+type Provider interface {
 	New() error
 	Send(*structs.Message) (*structs.MessageResponse, error)
 }
