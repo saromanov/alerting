@@ -52,15 +52,15 @@ func (a *App) Collect(m *structs.Message) error {
 // Run startes instance of the app for handling of collected messages
 func (a *App) Run() error {
 	c := cron.New()
-	c.AddFunc("@every 1h", func() { 
-		messages, err := ap.store.View()
+	c.AddFunc("@every 1h", func() {
+		messages, err := a.store.View()
 		if err != nil {
 			return
 		}
 		for _, m := range messages {
-			fmt.Println()
+			fmt.Println(m)
 		}
-	 })
+	})
 	c.Start()
 	for {
 	}
