@@ -26,6 +26,9 @@ type App struct {
 
 // New creates app
 func New(c *Config) *App {
+	if len(c.Providers) == 0 {
+		panic("providers is not defined")
+	}
 	return &App{
 		store: bolt.New(),
 	}
