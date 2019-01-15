@@ -14,6 +14,7 @@ type Message struct {
 	Case      string
 	Level     uint
 	Namespace string
+	Subject string
 }
 
 // Marshal provides marshaling of the message struct
