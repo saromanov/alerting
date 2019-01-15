@@ -10,7 +10,7 @@ type client struct {
 
 }
 
-func (c *client) Send(m *structs.Message){
+func (c *client) Send(m *structs.Message) (*structs.MessageResponse, error) {
 	svc := sns.New(session.New(&aws.Config{
 		Region: aws.String(awssns.Region),
 	}))
@@ -30,8 +30,10 @@ func (c *client) Send(m *structs.Message){
 
 	resp, err := svc.Publish(params)
 	if err != nil {
-		log.Println(err.Error())
-		return false
+		return nil, err
 	}
+	return &structs.MessageResponse{
+		
+	}, nil
 }
 
