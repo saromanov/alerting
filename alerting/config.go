@@ -12,4 +12,10 @@ type Alerting struct {
 	EmailHost     string `yaml:"email_host"`
 	EmailUserName string `yaml:"email_username"`
 	EmailPassword string `yaml:"email_password"`
+
+	AWSClusterName string `yanl:"aws-cluster-name"`
+	AWSEnabled     bool   `yanl:"aws-enabled"`
+	AWSRegion      string `yanl:"aws-region"`
+	AWSTopicArn    string `yanl:"aws-topic-arn"`
+	AWSTemplate    string `yanl:"aws-template"`
 }

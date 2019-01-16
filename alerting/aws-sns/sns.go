@@ -6,6 +6,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/sns"
 	"github.com/saromanov/alerting/structs"
 )
+
 type client struct {
 
 }
