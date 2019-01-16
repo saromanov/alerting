@@ -32,4 +32,5 @@ func (m *Message) String() string {
 type MessageResponse struct {
 	ChannelID string
 	Timestamp int64
+	ID string
 }
