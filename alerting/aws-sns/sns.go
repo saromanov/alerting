@@ -41,5 +41,7 @@ func (c *client) Send(m *structs.Message) (*structs.MessageResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &structs.MessageResponse{}, nil
+	return &structs.MessageResponse{
+		ID: *resp.ID,
+	}, nil
 }
