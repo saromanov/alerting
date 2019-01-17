@@ -8,5 +8,5 @@ type Source interface {
 
 // Config defines configuration for specification of source
 type Config struct {
-
+	Path string 
 }
