@@ -6,6 +6,7 @@ import (
 	"github.com/saromanov/alerting/alerting"
 	"github.com/saromanov/alerting/server"
 	"github.com/urfave/cli"
+	"gopkg.in/yaml.v2"
 )
 
 var flags = []cli.Flag{
@@ -31,9 +32,17 @@ func setupServer(c *cli.Context) (*server.Server, error) {
 	return s, nil
 }
 
-func parseConfig(path string) (*alerting.Config, error) {
-	return
+// parseConfig provides parsing of the config .yml file
+func parseConfig(data []byte) (*alerting.Config, error) {
+	var c *alerting.Config
+	err := yaml.Unmarshal(data, &c)
+	if err != nil {
+		return nil, fmt.Errorf("unable to parse .born.yml: %v", err)
+	}
+
+	return c, nil
 }
+
 func main() {
 
 }
