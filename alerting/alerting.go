@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	"github.com/robfig/cron"
-	"github.com/saromanov/alerting/db"
-	"github.com/saromanov/alerting/db/bolt"
+	"github.com/saromanov/alerting/storage"
+	"github.com/saromanov/alerting/storage/bolt"
 	"github.com/saromanov/alerting/structs"
 )
 

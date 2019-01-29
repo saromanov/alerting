@@ -3,6 +3,7 @@ package alerting
 import (
 	"fmt"
 
+	"github.com/saromanov/alerting/alerting"
 	"github.com/saromanov/alerting/server"
 	"github.com/urfave/cli"
 )
@@ -28,6 +29,10 @@ func setupServer(c *cli.Context) (*server.Server, error) {
 		return nil, fmt.Errorf("unable to setup server: %v", err)
 	}
 	return s, nil
+}
+
+func parseConfig(path string) (*alerting.Config, error) {
+	return
 }
 func main() {
 
