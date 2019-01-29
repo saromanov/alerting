@@ -2,7 +2,8 @@ package alerting
 
 // Config defines configuration for alerting
 type Config struct {
-	Providers []Alerting
+	ServerAddress string `yaml:"server_address"`
+	Providers     []Alerting
 }
 
 // Alerting provides definition of provider
