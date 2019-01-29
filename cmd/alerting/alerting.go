@@ -58,6 +58,10 @@ func main() {
 		if configPath == "" {
 			panic("config path is not defined")
 		}
+		_, err := parseConfig(configPath)
+		if err != nil {
+			panic(err)
+		}
 
 	}
 	err := cli.NewApp().Run(os.Args)
