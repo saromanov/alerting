@@ -2,6 +2,7 @@ package alerting
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 
 	"github.com/saromanov/alerting/alerting"
@@ -19,7 +20,7 @@ var flags = []cli.Flag{
 
 	cli.StringFlag{
 		EnvVar: "ALERTING_CONFIG",
-		Name:   "alerting-config",
+		Name:   "config",
 		Usage:  "path to alerting config",
 	},
 }
@@ -34,9 +35,13 @@ func setupServer(c *cli.Context) (*server.Server, error) {
 }
 
 // parseConfig provides parsing of the config .yml file
-func parseConfig(data []byte) (*alerting.Config, error) {
+func parseConfig(path string) (*alerting.Config, error) {
+	yamlFile, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, fmt.Errorf("unable to open config file: %v", err)
+	}
 	var c *alerting.Config
-	err := yaml.Unmarshal(data, &c)
+	err := yaml.Unmarshal(yamlFile, &c)
 	if err != nil {
 		return nil, fmt.Errorf("unable to parse .born.yml: %v", err)
 	}
@@ -45,6 +50,16 @@ func parseConfig(data []byte) (*alerting.Config, error) {
 }
 
 func main() {
+	app := cli.NewApp()
+	app.Name = "alerting"
+	app.Usage = "app for alert handling"
+	app.Action = func(c *cli.Context) error {
+		configPath := c.String("config")
+		if configPath == "" {
+			panic("config path is not defined")
+		}
+
+	}
 	err := cli.NewApp().Run(os.Args)
 	if err != nil {
 		panic(err)
