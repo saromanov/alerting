@@ -2,6 +2,7 @@ package alerting
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/saromanov/alerting/alerting"
 	"github.com/saromanov/alerting/server"
@@ -44,5 +45,8 @@ func parseConfig(data []byte) (*alerting.Config, error) {
 }
 
 func main() {
-
+	err := cli.NewApp().Run(os.Args)
+	if err != nil {
+		panic(err)
+	}
 }
