@@ -1,4 +1,4 @@
-package alerting
+package main
 
 import (
 	"fmt"
