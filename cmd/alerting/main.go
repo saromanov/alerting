@@ -11,18 +11,6 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-var commands = []cli.Command{
-	{
-		Name:    "config",
-		Aliases: []string{"c"},
-		Usage:   "path to .yml config",
-		Action: func(c *cli.Context) error {
-			fmt.Println("added task: ", c.Args().First())
-			return nil
-		},
-	},
-}
-
 // setupServer provides setup of the server
 func setupServer(c *cli.Context) error {
 	return server.Create(c.String("github-token"))
@@ -47,18 +35,21 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "alerting"
 	app.Usage = "app for alert handling"
-	app.Action = func(c *cli.Context) error {
-		configPath := c.String("config")
-		if configPath == "" {
-			panic("config path is not defined")
-		}
-		_, err := parseConfig(configPath)
-		if err != nil {
-			panic(err)
-		}
+	app.Commands = []cli.Command{
+		{
+			Name:    "config",
+			Aliases: []string{"c"},
+			Usage:   "path to .yml config",
+			Action: func(c *cli.Context) error {
+				configPath := c.Args().First()
+				_, err := parseConfig(configPath)
+				if err != nil {
+					panic(err)
+				}
 
-		return nil
-
+				return nil
+			},
+		},
 	}
 	err := app.Run(os.Args)
 	if err != nil {
