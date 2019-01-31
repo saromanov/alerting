@@ -62,7 +62,7 @@ func main() {
 		return nil
 
 	}
-	err := cli.NewApp().Run(os.Args)
+	err := app.Run(os.Args)
 	if err != nil {
 		panic(err)
 	}
