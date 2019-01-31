@@ -51,7 +51,9 @@ func main() {
 				if err != nil {
 					panic(err)
 				}
-
+				if err := setupApp(config); err != nil {
+					panic(err)
+				}
 				return nil
 			},
 		},
