@@ -11,17 +11,15 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-var flags = []cli.Flag{
-	cli.StringFlag{
-		EnvVar: "SERVER_ADDRESS",
-		Name:   "server-address",
-		Usage:  "setup address for alerting app",
-	},
-
-	cli.StringFlag{
-		EnvVar: "ALERTING_CONFIG",
-		Name:   "config",
-		Usage:  "path to alerting config",
+var commands = []cli.Command{
+	{
+		Name:    "config",
+		Aliases: []string{"c"},
+		Usage:   "path to .yml config",
+		Action: func(c *cli.Context) error {
+			fmt.Println("added task: ", c.Args().First())
+			return nil
+		},
 	},
 }
 
