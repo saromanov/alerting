@@ -12,8 +12,8 @@ import (
 )
 
 // setupServer provides setup of the server
-func setupServer(c *cli.Context) error {
-	return server.Create(c.String("github-token"))
+func setupServer(c *alerting.Config) error {
+	return server.Create(c)
 }
 
 // parseConfig provides parsing of the config .yml file
@@ -31,6 +31,11 @@ func parseConfig(path string) (*alerting.Config, error) {
 	return c, nil
 }
 
+func setupApp(c *alerting.Config) error {
+	setupServer(c)
+	return nil
+}
+
 func main() {
 	app := cli.NewApp()
 	app.Name = "alerting"
@@ -42,7 +47,7 @@ func main() {
 			Usage:   "path to .yml config",
 			Action: func(c *cli.Context) error {
 				configPath := c.Args().First()
-				_, err := parseConfig(configPath)
+				config, err := parseConfig(configPath)
 				if err != nil {
 					panic(err)
 				}
