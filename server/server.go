@@ -1,7 +1,7 @@
 package server
 
 import (
-	"log"
+	"fmt"
 	"net/http"
 	"github.com/go-chi/chi"
 )
@@ -18,9 +18,12 @@ func config(w http.ResponseWriter, r *http.Request) {
 
 
 // Create provides initialization of the server
-func Create(addr string) {
+func Create(addr string) error {
 	r := chi.NewRouter()
 	r.Get("/v1/metrics", metrics)
 	r.Get("/v1/config", config)
-	log.Fatal(http.ListenAndServe(addr, r))
+	if err := http.ListenAndServe(addr, r); err != nil {
+		return fmt.Errorf("unable to make server: %v", err)
+	}
+	return nil
 }
