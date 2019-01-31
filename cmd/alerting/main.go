@@ -26,12 +26,8 @@ var flags = []cli.Flag{
 }
 
 // setupServer provides setup of the server
-func setupServer(c *cli.Context) (*server.Server, error) {
-	s, err := server.Create(c.String("github-token"))
-	if err != nil {
-		return nil, fmt.Errorf("unable to setup server: %v", err)
-	}
-	return s, nil
+func setupServer(c *cli.Context) error {
+	return server.Create(c.String("github-token"))
 }
 
 // parseConfig provides parsing of the config .yml file
@@ -41,7 +37,7 @@ func parseConfig(path string) (*alerting.Config, error) {
 		return nil, fmt.Errorf("unable to open config file: %v", err)
 	}
 	var c *alerting.Config
-	err := yaml.Unmarshal(yamlFile, &c)
+	err = yaml.Unmarshal(yamlFile, &c)
 	if err != nil {
 		return nil, fmt.Errorf("unable to parse .born.yml: %v", err)
 	}
@@ -62,6 +58,8 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+
+		return nil
 
 	}
 	err := cli.NewApp().Run(os.Args)
