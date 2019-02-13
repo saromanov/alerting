@@ -7,6 +7,7 @@ import (
 
 	"github.com/saromanov/alerting/alerting"
 	"github.com/saromanov/alerting/server"
+	"github.com/saromanov/alerting/storage/redis"
 	"github.com/urfave/cli"
 	"gopkg.in/yaml.v2"
 )
@@ -14,6 +15,15 @@ import (
 // setupServer provides setup of the server
 func setupServer(c *alerting.Config) error {
 	return server.Create(c)
+}
+
+// setupStorage at this moment only Redis
+func setupStorage(c *alerting.Config) error {
+	_, err := redis.Setup(c)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 // parseConfig provides parsing of the config .yml file
