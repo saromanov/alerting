@@ -6,12 +6,14 @@ import (
 	"github.com/go-redis/redis"
 	"github.com/saromanov/alerting/alerting"
 	"github.com/saromanov/alerting/storage"
+	"github.com/saromanov/alerting/structs"
 )
 
 const defaultAddress = "localhost:6379"
 
 // db provides handling of the redis
 type db struct {
+	client *redis.Client
 }
 
 // Setup provides initialization of Redis
@@ -31,5 +33,22 @@ func Setup(c *alerting.Config) (storage.Storage, error) {
 		return nil, fmt.Errorf("unable to setup redis: %v", err)
 	}
 
-	return &db{}, nil
+	return &db{
+		client: client,
+	}, nil
+}
+
+// Set provides inserting of the message struct to redis
+func (d *db) Set(s *structs.Message) error {
+	return nil
+}
+
+// Get provides getting of the message by id
+func (d *db) Get(id string) (*structs.Message, error) {
+	return nil, nil
+}
+
+// View provides searching of teh messages
+func (d *db) View() ([]*structs.Message, error) {
+	return nil, nil
 }
