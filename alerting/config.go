@@ -3,6 +3,8 @@ package alerting
 // Config defines configuration for alerting
 type Config struct {
 	ServerAddress string `yaml:"server_address"`
+	RedisDB       int    `yaml:"redis_db"`
+	RedisPasswotd string `yaml:"redis_password"`
 	Providers     []Alerting
 }
 
