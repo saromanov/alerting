@@ -4,19 +4,26 @@ import (
 	"fmt"
 
 	"github.com/go-redis/redis"
+	"github.com/saromanov/alerting/alerting"
 	"github.com/saromanov/alerting/storage"
 )
+
+const defaultAddress = "localhost:6379"
 
 // db provides handling of the redis
 type db struct {
 }
 
 // Setup provides initialization of Redis
-func Setup() (storage.Storage, error) {
+func Setup(c *alerting.Config) (storage.Storage, error) {
+	address := defaultAddress
+	if c.RedisAddress != "" {
+		address = c.RedisAddress
+	}
 	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
+		Addr:     address,
+		Password: c.RedisPassword,
+		DB:       c.RedisDB,
 	})
 
 	_, err := client.Ping().Result()
