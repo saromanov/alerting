@@ -14,11 +14,13 @@ import (
 
 // setupServer provides setup of the server
 func setupServer(c *alerting.Config) error {
+	fmt.Println("setup server...")
 	return server.Create(c)
 }
 
 // setupStorage at this moment only Redis
 func setupStorage(c *alerting.Config) error {
+	fmt.Println("setup storage...")
 	_, err := redis.Setup(c)
 	if err != nil {
 		return err
@@ -42,6 +44,9 @@ func parseConfig(path string) (*alerting.Config, error) {
 }
 
 func setupApp(c *alerting.Config) error {
+	if err := setupStorage(c); err != nil {
+		return err
+	}
 	setupServer(c)
 	return nil
 }
