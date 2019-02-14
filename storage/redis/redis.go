@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/go-redis/redis"
-	"github.com/saromanov/alerting/alerting"
 	"github.com/saromanov/alerting/storage"
 	"github.com/saromanov/alerting/structs"
 )
@@ -17,7 +16,7 @@ type db struct {
 }
 
 // Setup provides initialization of Redis
-func Setup(c *alerting.Config) (storage.Storage, error) {
+func Setup(c *structs.Config) (storage.Storage, error) {
 	address := defaultAddress
 	if c.RedisAddress != "" {
 		address = c.RedisAddress

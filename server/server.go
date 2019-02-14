@@ -5,7 +5,10 @@ import (
 	"net/http"
 	"github.com/go-chi/chi"
 	"github.com/saromanov/alerting/alerting"
+	"github.com/saromanov/alerting/structs"
 )
+
+var app alerting.App
 
 // metrics provides output for metrics
 func metrics(w http.ResponseWriter, r *http.Request) {
@@ -19,7 +22,7 @@ func config(w http.ResponseWriter, r *http.Request) {
 
 
 // Create provides initialization of the server
-func Create(c *alerting.Config) error {
+func Create(c *structs.Config) error {
 	r := chi.NewRouter()
 	r.Get("/v1/metrics", metrics)
 	r.Get("/v1/config", config)
