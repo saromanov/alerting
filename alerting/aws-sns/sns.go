@@ -45,3 +45,8 @@ func (c *client) Send(m *structs.Message) (*structs.MessageResponse, error) {
 		ID: *resp.MessageId,
 	}, nil
 }
+
+// String returns name of provider
+func (c *client) String() string {
+	return "sns"
+}

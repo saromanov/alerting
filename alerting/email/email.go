@@ -37,3 +37,8 @@ func (e *Email) Send(m *structs.Message) (*structs.MessageResponse, error) {
 	}
 	return &structs.MessageResponse{}, nil
 }
+
+// String returns name of provider
+func (c *Email) String() string {
+	return "email"
+}

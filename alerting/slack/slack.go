@@ -35,3 +35,8 @@ func (s *Slack) Send(m *structs.Message) (*structs.MessageResponse, error) {
 		Timestamp: timestamp,
 	}, nil
 }
+
+// String returns name of provider
+func (c *Slack) String() string {
+	return "slack"
+}
