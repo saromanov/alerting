@@ -33,4 +33,5 @@ type MessageResponse struct {
 	ChannelID string
 	Timestamp int64
 	ID string
+	Provider string
 }
