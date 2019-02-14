@@ -35,10 +35,12 @@ func (e *Email) Send(m *structs.Message) (*structs.MessageResponse, error) {
 	if err := d.DialAndSend(g); err != nil {
 		return nil, fmt.Errorf("unable to send email: %v", err)
 	}
-	return &structs.MessageResponse{}, nil
+	return &structs.MessageResponse{
+		Provider: e.String(),
+	}, nil
 }
 
 // String returns name of provider
-func (c *Email) String() string {
+func (e *Email) String() string {
 	return "email"
 }

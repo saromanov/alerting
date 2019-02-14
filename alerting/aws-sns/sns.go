@@ -42,7 +42,8 @@ func (c *client) Send(m *structs.Message) (*structs.MessageResponse, error) {
 		return nil, err
 	}
 	return &structs.MessageResponse{
-		ID: *resp.MessageId,
+		ID:       *resp.MessageId,
+		Provider: c.String(),
 	}, nil
 }
 
