@@ -1,4 +1,4 @@
-package alerting
+package structs
 
 // Config defines configuration for alerting
 type Config struct {
